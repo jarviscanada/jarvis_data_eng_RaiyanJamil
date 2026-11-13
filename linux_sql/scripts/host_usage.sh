@@ -25,7 +25,7 @@ disk_io=$(vmstat -d | awk '{print $10}' | tail -n1 | xargs)
 disk_available=$(df -BM / | awk '{print $4}'| tail -n1 | tr -d 'M')
 
 # Current time in `2019-11-26 14:40:19` UTC format
-timestamp=$(vmstat -t | awk '{print $18, $19}' | tail -n1 | xargs)
+timestamp=$(TZ=UTC vmstat -t | awk '{print $18, $19}' | tail -n1 | xargs)
 
 # Subquery to find matching id in host_info table
 host_id="(SELECT id FROM host_info WHERE hostname='$hostname')";
