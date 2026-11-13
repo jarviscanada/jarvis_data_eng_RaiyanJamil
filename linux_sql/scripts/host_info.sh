@@ -26,7 +26,7 @@ l2_cache=$(cat /sys/devices/system/cpu/cpu0/cache/index2/size | sed 's/K//')
 total_mem=$(vmstat --unit M | tail -1 | awk '{print $4}')
 
 # Current time in `2019-11-26 14:40:19` UTC format
-timestamp=$(vmstat -t | awk '{print $18, $19}' | tail -n1 | xargs)
+timestamp=$(TZ=UTC vmstat -t | awk '{print $18, $19}' | tail -n1 | xargs)
 
 # PSQL command: Inserts server usage data into host_info table
 # Note: be careful with double and single quotes
