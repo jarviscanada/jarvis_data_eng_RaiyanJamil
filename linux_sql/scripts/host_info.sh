@@ -21,7 +21,7 @@ hostname=$(hostname -f)
 cpu_number=$(lscpu  | egrep "^CPU\(s\):" | awk '{print $2}' | xargs)
 cpu_architecture=$(lscpu  | egrep "^Architecture:" | awk '{print $2}' | xargs)
 cpu_model=$(lscpu | grep -oP "^Model name:\K.*" | xargs)
-cpu_mhz=$(grep -m1 "cpu MHz" /proc/cpuinfo | awk '{printf "%.2f\n", $4}')
+cpu_mhz=$(lscpu | grep "Model name:" | awk -F'[@G]' '{print $2 * 1000}')
 l2_cache=$(cat /sys/devices/system/cpu/cpu0/cache/index2/size | sed 's/K//')
 total_mem=$(vmstat --unit M | tail -1 | awk '{print $4}')
 
